@@ -15,16 +15,16 @@ protocol GameManagerAction {
 struct GamePositionManager : GameManagerAction {
     func positionMap(_ transform: (IPiece, Int, Int)->() )
     {
-        var x = 0
-        var y = 0
+        var column = 0
+        var row = 0
         for line in positionTable {
-            x = 0
+            column = 0
             for piece in line {
                 guard let piece = piece else { continue }
-                transform(piece, y, x)
-                x += 1
+                transform(piece, row, column)
+                column += 1
             }
-            y += 1
+            row += 1
         }
     }
     
