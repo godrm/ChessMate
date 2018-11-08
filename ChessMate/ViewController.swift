@@ -48,7 +48,11 @@ struct Piece {
     
 }
 
-class PieceImageView: UIImageView {
+protocol PieceImageSetter {
+    func setImageBy(piece: Piece)
+}
+
+class PieceImageView: UIImageView, PieceImageSetter {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -56,18 +60,34 @@ class PieceImageView: UIImageView {
     override init(image: UIImage?) {
         super.init(image: image)
     }
+    
+    func setImageBy(piece: Piece) {
+        self.image = piece.type.image(color: piece.color.rawValue)
+    }
+}
+
+protocol GameManagerAction {
+    func positionMap() -> Array<Array<Piece?>>
 }
 
 class ViewController: UIViewController {
-    private var positionManager = GamePositionManager.init()
-
+    private var positionManager : GameManagerAction?
+    private var geometricManager = GeometricManager(screenBounds: UIScreen.main.bounds)
+    private var backgroundView : BackgroundView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         self.view.backgroundColor = UIColor.lightGray
-        self.view.addSubview(BackgroundView())
-        setupDefault(pieces: positionManager.positionMap)
+        backgroundView = BackgroundView.init(presenter: geometricManager)
+        self.view.addSubview(backgroundView)
+        guard let positionManager = positionManager else { return }
+        setupDefault(pieces: positionManager.positionMap())
+    }
+    
+    func setManager(_ manager : GameManagerAction) {
+        self.positionManager = manager
     }
 
     private func setupDefault(pieces: [[Piece?]]) {
@@ -78,7 +98,8 @@ class ViewController: UIViewController {
             for piece in line {
                 guard let piece = piece else { continue }
                 let pieceImage = PieceImageView.init(image: piece.type.image(color: piece.color.rawValue))
-                pieceImage.frame = positionManager.defaultFrame(for: (x,y))
+                pieceImage.frame = geometricManager.rectAt(row: y, column: x)
+                pieceImage.frame.origin.y += backgroundView.frame.origin.y
                 self.view.addSubview(pieceImage)
                 x += 1
             }
@@ -88,57 +109,4 @@ class ViewController: UIViewController {
     
 }
 
-struct GamePositionManager {
-    var positionMap = Array<Array<Piece?>>()
-    
-    init() {
-        positionMap.append([Piece(type: .rook, color: .black),
-                            Piece(type: .knight, color: .black),
-                            Piece(type: .bishop, color: .black),
-                            Piece(type: .king, color: .black),
-                            Piece(type: .queen, color: .black),
-                            Piece(type: .bishop, color: .black),
-                            Piece(type: .knight, color: .black),
-                            Piece(type: .rook, color: .black)])
-        positionMap.append([Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black)])
-        positionMap.append([])
-        positionMap.append([])
-        positionMap.append([])
-        positionMap.append([])
-        positionMap.append([Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white)])
-        positionMap.append([Piece(type: .rook, color: .white),
-                            Piece(type: .knight, color: .white),
-                            Piece(type: .bishop, color: .white),
-                            Piece(type: .king, color: .white),
-                            Piece(type: .queen, color: .white),
-                            Piece(type: .bishop, color: .white),
-                            Piece(type: .knight, color: .white),
-                            Piece(type: .rook, color: .white)])
-    }
-    
-    public func defaultFrame(for path:(x : Int, y: Int)) -> CGRect {
-        let Steps = 8
-        let screenRect = UIScreen.main.bounds
-        let verticalMargin = (screenRect.height - screenRect.width) / 2
-        let frame = CGRect(x: 0, y: verticalMargin,
-                      width: screenRect.width, height: screenRect.width)
-        let width = frame.width / CGFloat(Steps)
-        let height = frame.height / CGFloat(Steps)
-        return CGRect(x: CGFloat(path.x) * width, y: verticalMargin + CGFloat(path.y) * height, width: width, height: height)
-    }
 
-}

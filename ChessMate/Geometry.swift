@@ -7,13 +7,29 @@
 //
 
 import Foundation
-import UIKit.UIScreen
+import CoreGraphics
 
 struct GeometricManager : BackgroundPresenter {
+    static let Steps = 8
+
+    private var screenRect : CGRect
+    private let pieceWidth : CGFloat
+    private let pieceHeight : CGFloat
+    private let verticalMargin : CGFloat
+    
+    init(screenBounds: CGRect) {
+        screenRect = screenBounds
+        pieceWidth = screenRect.width / CGFloat(GeometricManager.Steps)
+        pieceHeight = pieceWidth
+        verticalMargin = (screenRect.height - screenRect.width) / 2
+    }
+    
     func centralRect() -> CGRect {
-        let screenRect = UIScreen.main.bounds
-        let verticalMargin = (screenRect.height - screenRect.width) / 2
         return CGRect(x: 0, y: verticalMargin,
                       width: screenRect.width, height: screenRect.width)
+    }
+    
+    func rectAt(row: Int, column: Int) -> CGRect {
+        return CGRect(x: CGFloat(column) * pieceWidth, y:  CGFloat(row) * pieceHeight, width: pieceWidth, height: pieceHeight)
     }
 }

@@ -10,10 +10,10 @@ import UIKit
 
 protocol BackgroundPresenter {
     func centralRect() -> CGRect
+    func rectAt(row: Int, column: Int) -> CGRect
 }
 
 class BackgroundView: UIView {
-    private let Steps = 8
     private var presenter : BackgroundPresenter!
 
     override init(frame: CGRect) {
@@ -32,13 +32,10 @@ class BackgroundView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        let width = frame.width / CGFloat(Steps)
-        let height = frame.height / CGFloat(Steps)
         var binaryFlag = false
-        for y in 0..<Steps {
-            for x in 0..<Steps {
-                let boxFrame = CGRect(x: CGFloat(x) * width, y: CGFloat(y) * height,
-                                      width: width, height: height)
+        for y in 0..<GeometricManager.Steps {
+            for x in 0..<GeometricManager.Steps {
+                let boxFrame = presenter.rectAt(row: x, column: y)
                 (binaryFlag ? UIColor.white : UIColor.darkGray).setFill()
                 UIBezierPath.init(rect: boxFrame).fill()
                 binaryFlag.toggle()
