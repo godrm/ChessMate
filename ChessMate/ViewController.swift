@@ -8,48 +8,8 @@
 
 import UIKit
 
-
-enum PieceType {
-    case pawn
-    case king
-    case queen
-    case rook
-    case bishop
-    case knight
-    
-    func image(color: String) -> UIImage? {
-        switch self {
-        case .pawn:
-            return UIImage.init(named: "pawn-"+color)
-        case .king:
-            return UIImage.init(named: "king-"+color)
-        case .queen:
-            return UIImage.init(named: "queen-"+color)
-        case .rook:
-            return UIImage.init(named: "rook-"+color)
-        case .bishop:
-            return UIImage.init(named: "bishop-"+color)
-        case .knight:
-            return UIImage.init(named: "knight-"+color)
-        default:
-            return nil
-        }
-    }
-}
-
-enum PieceColor: String {
-    case white = "white"
-    case black = "black"
-}
-
-struct Piece {
-    let type : PieceType
-    let color : PieceColor
-    
-}
-
 protocol PieceImageSetter {
-    func setImageBy(piece: Piece)
+    func setImageBy(piece: IPiece)
 }
 
 class PieceImageView: UIImageView, PieceImageSetter {
@@ -61,13 +21,13 @@ class PieceImageView: UIImageView, PieceImageSetter {
         super.init(image: image)
     }
     
-    func setImageBy(piece: Piece) {
-        self.image = piece.type.image(color: piece.color.rawValue)
+    func setImageBy(piece: IPiece) {
+        self.image = piece.image()
     }
 }
 
 protocol GameManagerAction {
-    func positionMap() -> Array<Array<Piece?>>
+    func positionMap() -> Array<Array<IPiece?>>
 }
 
 class ViewController: UIViewController {
@@ -90,14 +50,14 @@ class ViewController: UIViewController {
         self.positionManager = manager
     }
 
-    private func setupDefault(pieces: [[Piece?]]) {
+    private func setupDefault(pieces: [[IPiece?]]) {
         var x = 0
         var y = 0
         for line in pieces {
             x = 0
             for piece in line {
                 guard let piece = piece else { continue }
-                let pieceImage = PieceImageView.init(image: piece.type.image(color: piece.color.rawValue))
+                let pieceImage = PieceImageView.init(image: piece.image())
                 pieceImage.frame = geometricManager.rectAt(row: y, column: x)
                 pieceImage.frame.origin.y += backgroundView.frame.origin.y
                 self.view.addSubview(pieceImage)

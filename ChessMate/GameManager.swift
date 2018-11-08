@@ -9,48 +9,48 @@
 import Foundation
 
 struct GamePositionManager : GameManagerAction {
-    func positionMap() -> Array<Array<Piece?>> {
+    func positionMap() -> Array<Array<IPiece?>> {
         return positionTable
     }
     
-    private var positionTable = Array<Array<Piece?>>()
+    private var positionTable = Array<Array<IPiece?>>()
     
     init() {
-        positionTable.append([Piece(type: .rook, color: .black),
-                            Piece(type: .knight, color: .black),
-                            Piece(type: .bishop, color: .black),
-                            Piece(type: .king, color: .black),
-                            Piece(type: .queen, color: .black),
-                            Piece(type: .bishop, color: .black),
-                            Piece(type: .knight, color: .black),
-                            Piece(type: .rook, color: .black)])
-        positionTable.append([Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black),
-                            Piece(type: .pawn, color: .black)])
+        positionTable.append([PieceFactory.makeRook(color:  .black),
+                            PieceFactory.makeKnight(color: .black),
+                            PieceFactory.makeBishop(color: .black),
+                            PieceFactory.makeKing(color: .black),
+                            PieceFactory.makeQueen(color: .black),
+                            PieceFactory.makeBishop(color: .black),
+                            PieceFactory.makeKnight(color: .black),
+                            PieceFactory.makeRook(color: .black)])
+        positionTable.append([PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black),
+                            PieceFactory.makePawn(color: .black)])
         positionTable.append([])
         positionTable.append([])
         positionTable.append([])
         positionTable.append([])
-        positionTable.append([Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white),
-                            Piece(type: .pawn, color: .white)])
-        positionTable.append([Piece(type: .rook, color: .white),
-                            Piece(type: .knight, color: .white),
-                            Piece(type: .bishop, color: .white),
-                            Piece(type: .king, color: .white),
-                            Piece(type: .queen, color: .white),
-                            Piece(type: .bishop, color: .white),
-                            Piece(type: .knight, color: .white),
-                            Piece(type: .rook, color: .white)])
+        positionTable.append([PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white),
+                            PieceFactory.makePawn(color: .white)])
+        positionTable.append([PieceFactory.makeRook(color: .white),
+                            PieceFactory.makeKnight(color: .white),
+                            PieceFactory.makeBishop(color: .white),
+                            PieceFactory.makeKing(color: .white),
+                            PieceFactory.makeQueen(color: .white),
+                            PieceFactory.makeBishop(color: .white),
+                            PieceFactory.makeKnight(color: .white),
+                            PieceFactory.makeRook(color: .white)])
     }
 }
