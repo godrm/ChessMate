@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol BackgroundPresenter {
+    func centralRect() -> CGRect
+}
+
 class BackgroundView: UIView {
     private let Steps = 8
-    
+    private var presenter : BackgroundPresenter!
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -20,17 +25,11 @@ class BackgroundView: UIView {
         
     }
     
-    convenience init() {
-        self.init(frame: BackgroundView.centralRect())
+    convenience init(presenter: BackgroundPresenter) {
+        self.init(frame: presenter.centralRect())
+        self.presenter = presenter
     }
     
-    private static func centralRect() -> CGRect {
-        let screenRect = UIScreen.main.bounds
-        let verticalMargin = (screenRect.height - screenRect.width) / 2
-        return CGRect(x: 0, y: verticalMargin,
-                      width: screenRect.width, height: screenRect.width)
-    }
-
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         let width = frame.width / CGFloat(Steps)
