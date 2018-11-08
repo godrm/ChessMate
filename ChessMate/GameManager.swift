@@ -8,9 +8,24 @@
 
 import Foundation
 
+protocol GameManagerAction {
+    func positionMap(_ transform: (IPiece, Int, Int)->() )
+}
+
 struct GamePositionManager : GameManagerAction {
-    func positionMap() -> Array<Array<IPiece?>> {
-        return positionTable
+    func positionMap(_ transform: (IPiece, Int, Int)->() )
+    {
+        var x = 0
+        var y = 0
+        for line in positionTable {
+            x = 0
+            for piece in line {
+                guard let piece = piece else { continue }
+                transform(piece, y, x)
+                x += 1
+            }
+            y += 1
+        }
     }
     
     private var positionTable = Array<Array<IPiece?>>()

@@ -26,10 +26,6 @@ class PieceImageView: UIImageView, PieceImageSetter {
     }
 }
 
-protocol GameManagerAction {
-    func positionMap() -> Array<Array<IPiece?>>
-}
-
 class ViewController: UIViewController {
     private var positionManager : GameManagerAction?
     private var geometricManager = GeometricManager(screenBounds: UIScreen.main.bounds)
@@ -43,28 +39,20 @@ class ViewController: UIViewController {
         backgroundView = BackgroundView.init(presenter: geometricManager)
         self.view.addSubview(backgroundView)
         guard let positionManager = positionManager else { return }
-        setupDefault(pieces: positionManager.positionMap())
+        setupDefault()
     }
     
     func setManager(_ manager : GameManagerAction) {
         self.positionManager = manager
     }
 
-    private func setupDefault(pieces: [[IPiece?]]) {
-        var x = 0
-        var y = 0
-        for line in pieces {
-            x = 0
-            for piece in line {
-                guard let piece = piece else { continue }
+    private func setupDefault() {
+        positionManager?.positionMap({ (piece, row, column) in
                 let pieceImage = PieceImageView.init(image: piece.image())
-                pieceImage.frame = geometricManager.rectAt(row: y, column: x)
+                pieceImage.frame = geometricManager.rectAt(row: row, column: column)
                 pieceImage.frame.origin.y += backgroundView.frame.origin.y
                 self.view.addSubview(pieceImage)
-                x += 1
-            }
-            y += 1
-        }
+            })
     }
     
 }
