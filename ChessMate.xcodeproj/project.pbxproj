@@ -10,6 +10,7 @@
 		83BA48ED21940D6700074145 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BA48EC21940D6700074145 /* Geometry.swift */; };
 		83BA48EF21940F7000074145 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BA48EE21940F7000074145 /* GameManager.swift */; };
 		83BA48F1219421EA00074145 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BA48F0219421EA00074145 /* Piece.swift */; };
+		83BA48F321942A0900074145 /* PieceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BA48F221942A0900074145 /* PieceImageView.swift */; };
 		83E0746F218EC6570026102E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E0746E218EC6570026102E /* AppDelegate.swift */; };
 		83E07471218EC6570026102E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E07470218EC6570026102E /* ViewController.swift */; };
 		83E07474218EC6570026102E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83E07472218EC6570026102E /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		83BA48EC21940D6700074145 /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		83BA48EE21940F7000074145 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		83BA48F0219421EA00074145 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		83BA48F221942A0900074145 /* PieceImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceImageView.swift; sourceTree = "<group>"; };
 		83E0746B218EC6570026102E /* ChessMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83E0746E218EC6570026102E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83E07470218EC6570026102E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				83E0746E218EC6570026102E /* AppDelegate.swift */,
 				83E07470218EC6570026102E /* ViewController.swift */,
 				83BA48EE21940F7000074145 /* GameManager.swift */,
+				83BA48F221942A0900074145 /* PieceImageView.swift */,
 				83BA48F0219421EA00074145 /* Piece.swift */,
 				83E07480218EDD560026102E /* BackgroundView.swift */,
 				83BA48EC21940D6700074145 /* Geometry.swift */,
@@ -151,6 +154,7 @@
 				83BA48ED21940D6700074145 /* Geometry.swift in Sources */,
 				83BA48F1219421EA00074145 /* Piece.swift in Sources */,
 				83E07481218EDD560026102E /* BackgroundView.swift in Sources */,
+				83BA48F321942A0900074145 /* PieceImageView.swift in Sources */,
 				83E0746F218EC6570026102E /* AppDelegate.swift in Sources */,
 				83BA48EF21940F7000074145 /* GameManager.swift in Sources */,
 			);

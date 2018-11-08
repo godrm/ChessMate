@@ -8,24 +8,6 @@
 
 import UIKit
 
-protocol PieceImageSetter {
-    func setImageBy(piece: IPiece)
-}
-
-class PieceImageView: UIImageView, PieceImageSetter {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override init(image: UIImage?) {
-        super.init(image: image)
-    }
-    
-    func setImageBy(piece: IPiece) {
-        self.image = piece.image()
-    }
-}
-
 class ViewController: UIViewController {
     private var positionManager : GameManagerAction?
     private var geometricManager = GeometricManager(screenBounds: UIScreen.main.bounds)
